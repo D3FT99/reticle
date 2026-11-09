@@ -1,4 +1,4 @@
-# Builds, signs and publishes a Reticle release with its installer.
+﻿# Builds, signs and publishes a Reticle release with its installer.
 #
 # Start a release in either of two ways:
 #   - push a tag:      git tag v1.2.0; git push origin v1.2.0
@@ -49,7 +49,7 @@ jobs:
           "prerelease=$(if ($v.Contains('-')) { 'true' } else { 'false' })" >> $env:GITHUB_OUTPUT
           Write-Output "Releasing $v"
 
-      - uses: actions/checkout@v4
+      - uses: actions/checkout@v5
 
       - name: Fail if the release already exists
         shell: pwsh
@@ -61,7 +61,7 @@ jobs:
           if ($LASTEXITCODE -eq 0) { throw "Release $env:TAG already exists" }
           $global:LASTEXITCODE = 0
 
-      - uses: actions/setup-dotnet@v4
+      - uses: actions/setup-dotnet@v5
         with:
           dotnet-version: '10.0.x'
 
