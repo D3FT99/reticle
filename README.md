@@ -1,5 +1,8 @@
 # Reticle
 
+📖 **Documentation: [Reticle wiki](https://github.com/D3FT99/reticle/wiki)**: installation, usage, settings,
+troubleshooting and developer guides. **Download:** [latest release](https://github.com/D3FT99/reticle/releases/latest).
+
 Hands-free clicking for Windows 10 and 11. Rest the pointer and Reticle clicks for you. Use it with a head mouse, eye
 gaze, or any pointing device where pressing a button is hard.
 
