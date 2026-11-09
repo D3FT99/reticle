@@ -82,9 +82,11 @@ jobs:
         run: |
           if (-not $env:SIGNING_CERT_PFX) { throw 'The SIGNING_CERT_PFX secret is not set. See the Release-Process wiki page.' }
           $pfx = Join-Path $env:RUNNER_TEMP 'signing.pfx'
-          [IO.File]::WriteAllBytes($pfx, [Convert]::FromBase64String($env:SIGNING_CERT_PFX))
+          # Tolerate whitespace or a byte-order mark picked up when the secret was set.
+          $base64 = $env:SIGNING_CERT_PFX -replace '[^A-Za-z0-9+/=]', ''
+          [IO.File]::WriteAllBytes($pfx, [Convert]::FromBase64String($base64))
           try {
-            $password = ConvertTo-SecureString $env:SIGNING_CERT_PASSWORD -AsPlainText -Force
+            $password = ConvertTo-SecureString $env:SIGNING_CERT_PASSWORD.Trim([char]0xFEFF, ' ', "`r", "`n") -AsPlainText -Force
             $cert = Import-PfxCertificate -FilePath $pfx -CertStoreLocation Cert:\CurrentUser\My -Password $password
           } finally { Remove-Item $pfx -Force }
           Write-Output "Imported $($cert.Subject) ($($cert.Thumbprint)), valid until $($cert.NotAfter.ToString('yyyy-MM-dd'))"
@@ -130,5 +132,6 @@ jobs:
 
       - name: Remove signing certificate
         if: always()
-        shell: pwsh
+        # Windows PowerShell: its certificate provider supports -DeleteKey, PowerShell 7's does not.
+        shell: powershell
         run: Get-ChildItem Cert:\CurrentUser\My | Where-Object Subject -eq 'CN=Reticle' | Remove-Item -DeleteKey -ErrorAction SilentlyContinue
