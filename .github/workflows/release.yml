@@ -1,12 +1,15 @@
-﻿# Builds, signs and publishes a Reticle release with its installer.
+# Builds, signs and publishes a Reticle release with its installer.
 #
-# Start a release in either of two ways:
-#   - push a tag:      git tag v1.2.0; git push origin v1.2.0
-#   - run manually:    Actions > Release > Run workflow, enter the version (e.g. 1.2.0); the tag is created for you
+# Start a release by pushing a tag from main:
+#   git tag v1.2.0
+#   git push origin v1.2.0
+# The "Protect release tags" ruleset lets only repository admins create, move or delete v* tags, so the workflow
+# cannot create tags itself.
 #
 # Versions with a hyphen (1.2.0-beta.1) are published as pre-releases.
 #
-# Required repository secrets (Settings > Secrets and variables > Actions):
+# Required secrets in the "release" environment (Settings > Environments > release). The environment only
+# accepts runs from v* tags, and each run waits for a reviewer to approve it before it can read them:
 #   SIGNING_CERT_PFX           base64 of the CN=Reticle code-signing certificate (.pfx)
 #   SIGNING_CERT_PASSWORD      password of that .pfx
 name: Release
@@ -14,12 +17,6 @@ name: Release
 on:
   push:
     tags: ['v*.*.*']
-  workflow_dispatch:
-    inputs:
-      version:
-        description: 'Version to release, without the leading v (e.g. 1.2.0 or 1.2.0-beta.1)'
-        required: true
-        type: string
 
 permissions:
   contents: write
@@ -31,6 +28,10 @@ concurrency:
 jobs:
   release:
     runs-on: windows-latest
+    # The signing secrets live in this environment. It only accepts v* tags and waits for a reviewer.
+    environment:
+      name: release
+      url: ${{ github.server_url }}/${{ github.repository }}/releases/tag/${{ steps.version.outputs.tag }}
     env:
       DOTNET_NOLOGO: '1'
       DOTNET_CLI_TELEMETRY_OPTOUT: '1'
@@ -38,18 +39,17 @@ jobs:
       - name: Resolve version
         id: version
         shell: pwsh
-        env:
-          INPUT_VERSION: ${{ inputs.version }}
         run: |
-          if ($env:GITHUB_EVENT_NAME -eq 'workflow_dispatch') { $v = $env:INPUT_VERSION.Trim().TrimStart('v') }
-          else { $v = $env:GITHUB_REF_NAME.TrimStart('v') }
+          $v = $env:GITHUB_REF_NAME.TrimStart('v')
           if ($v -notmatch '^\d+\.\d+\.\d+(-[0-9A-Za-z.-]+)?$') { throw "'$v' is not a semantic version (1.2.3 or 1.2.3-beta.1)" }
           "version=$v" >> $env:GITHUB_OUTPUT
           "tag=v$v" >> $env:GITHUB_OUTPUT
           "prerelease=$(if ($v.Contains('-')) { 'true' } else { 'false' })" >> $env:GITHUB_OUTPUT
           Write-Output "Releasing $v"
 
-      - uses: actions/checkout@v5
+      - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
+        with:
+          persist-credentials: false
 
       - name: Fail if the release already exists
         shell: pwsh
@@ -61,7 +61,7 @@ jobs:
           if ($LASTEXITCODE -eq 0) { throw "Release $env:TAG already exists" }
           $global:LASTEXITCODE = 0
 
-      - uses: actions/setup-dotnet@v5
+      - uses: actions/setup-dotnet@0f4a354dd5547a28c70b7853dbd95d5b67886e73 # v6.1.0
         with:
           dotnet-version: '10.0.x'
 

@@ -52,8 +52,8 @@ Get `Reticle-<version>-setup.exe` from the [latest release](../../releases/lates
 
 ## Releasing
 
-Push a `v*.*.*` tag (or run **Actions → Release** with a version). The workflow tests, signs, builds the installer
-and publishes a GitHub release. See the [Release Process](../../wiki/Release-Process) wiki page.
+Push a `v*.*.*` tag from `main` and approve the run in the `release` environment. The workflow tests, signs, builds
+the installer and publishes a GitHub release. See the [Release Process](../../wiki/Release-Process) wiki page.
 
 ## Installer
 
