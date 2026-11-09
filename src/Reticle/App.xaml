@@ -1,0 +1,16 @@
+<Application x:Class="Reticle.App"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             ShutdownMode="OnMainWindowClose">
+    <Application.Resources>
+        <ResourceDictionary>
+            <ResourceDictionary.MergedDictionaries>
+                <!-- Palette and strings are replaced at runtime by ThemeManager and Localizer. -->
+                <ResourceDictionary Source="Themes/Palettes/Midnight.xaml" />
+                <ResourceDictionary Source="Localization/en.xaml" />
+                <ResourceDictionary Source="Themes/Theme.xaml" />
+                <ResourceDictionary Source="Themes/Controls.xaml" />
+            </ResourceDictionary.MergedDictionaries>
+        </ResourceDictionary>
+    </Application.Resources>
+</Application>

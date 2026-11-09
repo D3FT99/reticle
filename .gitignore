@@ -1,0 +1,8 @@
+bin/
+obj/
+dist/
+*.user
+.vs/
+# Code-signing keys never leave the machine's certificate store.
+*.pfx
+*.p12

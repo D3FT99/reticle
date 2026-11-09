@@ -1,0 +1,356 @@
+<ResourceDictionary xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+                    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
+
+    <!-- Brushes come from Themes/Palettes/*.xaml and are referenced dynamically so themes switch live. -->
+
+    <FontFamily x:Key="UiFont">Segoe UI Variable Display, Segoe UI</FontFamily>
+
+    <DropShadowEffect x:Key="PanelShadow" BlurRadius="28" ShadowDepth="6" Direction="270" Opacity="0.5" Color="#000000" />
+
+    <!-- Icons: 24x24 stroke geometries in the Fluent style -->
+    <Geometry x:Key="IconRest">M12,3 A9,9 0 1 1 11.99,3 Z M10,8.75 V15.25 M14,8.75 V15.25</Geometry>
+    <Geometry x:Key="IconMouse">M12,3 C8.7,3 6,5.7 6,9 V15 C6,18.3 8.7,21 12,21 C15.3,21 18,18.3 18,15 V9 C18,5.7 15.3,3 12,3 Z M6,10.5 H18 M12,3 V10.5</Geometry>
+    <Geometry x:Key="IconMouseLeftFill">M11.2,3.9 C8.7,4.3 6.9,6.4 6.9,9 V9.6 H11.2 Z</Geometry>
+    <Geometry x:Key="IconMouseRightFill">M12.8,3.9 V9.6 H17.1 V9 C17.1,6.4 15.3,4.3 12.8,3.9 Z</Geometry>
+    <Geometry x:Key="IconDoubleRipple">M19.25,5.75 C20.4,7.6 20.4,9.9 19.25,11.75 M21.75,3.75 C23.6,6.9 23.6,10.6 21.75,13.75</Geometry>
+    <Geometry x:Key="IconDrag">M12,3 V21 M3,12 H21 M9.25,5.75 L12,3 L14.75,5.75 M9.25,18.25 L12,21 L14.75,18.25 M5.75,9.25 L3,12 L5.75,14.75 M18.25,9.25 L21,12 L18.25,14.75</Geometry>
+    <Geometry x:Key="IconSettings">M3.5,7 H13.5 M18.5,7 H20.5 M3.5,17 H5.5 M10.5,17 H20.5 M13.5,7 A2.5,2.5 0 1 0 18.5,7 A2.5,2.5 0 1 0 13.5,7 Z M5.5,17 A2.5,2.5 0 1 0 10.5,17 A2.5,2.5 0 1 0 5.5,17 Z</Geometry>
+    <Geometry x:Key="IconLock">M8,11 V8 A4,4 0 0 1 16,8 V11 M6,11 H18 V20 H6 Z</Geometry>
+    <Geometry x:Key="IconArrow">M4,12 H20 M13.5,5.5 L20,12 L13.5,18.5</Geometry>
+    <Geometry x:Key="IconSoundOn">M4,9 H7.5 L12,5 V19 L7.5,15 H4 Z M15.5,9 C16.8,10.8 16.8,13.2 15.5,15 M18.25,6.5 C20.9,9.8 20.9,14.2 18.25,17.5</Geometry>
+    <Geometry x:Key="IconSoundOff">M4,9 H7.5 L12,5 V19 L7.5,15 H4 Z M16,9.5 L21,14.5 M21,9.5 L16,14.5</Geometry>
+    <Geometry x:Key="IconShield">M12,3 L19,6 V11 C19,15.5 16,19 12,21 C8,19 5,15.5 5,11 V6 Z M9.25,12 L11.25,14 L15,10.25</Geometry>
+    <Geometry x:Key="IconTimer">M12,21 A8,8 0 1 1 12,5 A8,8 0 1 1 12,21 Z M12,9 V13 L14.5,14.5 M10,2.5 H14</Geometry>
+    <Geometry x:Key="IconTarget">M12,21 A9,9 0 1 1 12,3 A9,9 0 1 1 12,21 Z M12,16.5 A4.5,4.5 0 1 1 12,7.5 A4.5,4.5 0 1 1 12,16.5 Z M12,12 H12.01</Geometry>
+    <Geometry x:Key="IconPosition">M5,4 H19 A1,1 0 0 1 20,5 V19 A1,1 0 0 1 19,20 H5 A1,1 0 0 1 4,19 V5 A1,1 0 0 1 5,4 Z M8,7 H16</Geometry>
+    <Geometry x:Key="IconMinus">M5,12 H19</Geometry>
+    <Geometry x:Key="IconPlus">M5,12 H19 M12,5 V19</Geometry>
+    <Geometry x:Key="IconToolbar">M4,8 H20 A1.5,1.5 0 0 1 21.5,9.5 V14.5 A1.5,1.5 0 0 1 20,16 H4 A1.5,1.5 0 0 1 2.5,14.5 V9.5 A1.5,1.5 0 0 1 4,8 Z M8.5,8 V16 M15.5,8 V16</Geometry>
+    <Geometry x:Key="IconTheme">M12,3 A9,9 0 1 1 11.99,3 Z M12,3 V21 M12,3 A9,9 0 0 0 12,21</Geometry>
+    <Geometry x:Key="IconLanguage">M12,3 A9,9 0 1 1 11.99,3 Z M3,12 H21 M12,3 C9.5,5.5 8.5,8.7 8.5,12 C8.5,15.3 9.5,18.5 12,21 M12,3 C14.5,5.5 15.5,8.7 15.5,12 C15.5,15.3 14.5,18.5 12,21</Geometry>
+    <Geometry x:Key="IconPower">M12,3 V11 M7.05,6.05 A7,7 0 1 0 16.95,6.05</Geometry>
+
+    <!-- The app icon as vectors (same drawing as tools/make-icon.ps1), crisp at any size and DPI -->
+    <DrawingImage x:Key="AppIconImage">
+        <DrawingImage.Drawing>
+            <DrawingGroup>
+                <GeometryDrawing>
+                    <GeometryDrawing.Brush>
+                        <LinearGradientBrush StartPoint="0,0" EndPoint="1,1">
+                            <GradientStop Offset="0" Color="#FF3D8BFF" />
+                            <GradientStop Offset="1" Color="#FF2BB3FF" />
+                        </LinearGradientBrush>
+                    </GeometryDrawing.Brush>
+                    <GeometryDrawing.Geometry>
+                        <RectangleGeometry Rect="0,0,24,24" RadiusX="5.28" RadiusY="5.28" />
+                    </GeometryDrawing.Geometry>
+                </GeometryDrawing>
+                <GeometryDrawing Geometry="M12,5.28 A6.72,6.72 0 1 1 11.99,5.28 Z">
+                    <GeometryDrawing.Pen>
+                        <Pen Brush="#46FFFFFF" Thickness="2.4" />
+                    </GeometryDrawing.Pen>
+                </GeometryDrawing>
+                <GeometryDrawing Geometry="M12,5.28 A6.72,6.72 0 1 1 5.28,12">
+                    <GeometryDrawing.Pen>
+                        <Pen Brush="White" Thickness="2.4" StartLineCap="Round" EndLineCap="Round" />
+                    </GeometryDrawing.Pen>
+                </GeometryDrawing>
+                <GeometryDrawing Geometry="M12,2.4 V7.2 M12,16.8 V21.6 M2.4,12 H7.2 M16.8,12 H21.6">
+                    <GeometryDrawing.Pen>
+                        <Pen Brush="White" Thickness="1.2" StartLineCap="Round" EndLineCap="Round" />
+                    </GeometryDrawing.Pen>
+                </GeometryDrawing>
+                <GeometryDrawing Brush="White">
+                    <GeometryDrawing.Geometry>
+                        <EllipseGeometry Center="12,12" RadiusX="1.92" RadiusY="1.92" />
+                    </GeometryDrawing.Geometry>
+                </GeometryDrawing>
+            </DrawingGroup>
+        </DrawingImage.Drawing>
+    </DrawingImage>
+
+    <Style x:Key="IconPath" TargetType="Path">
+        <Setter Property="Stroke" Value="{Binding Foreground, RelativeSource={RelativeSource AncestorType=Control}}" />
+        <Setter Property="StrokeThickness" Value="1.75" />
+        <Setter Property="StrokeStartLineCap" Value="Round" />
+        <Setter Property="StrokeEndLineCap" Value="Round" />
+        <Setter Property="StrokeLineJoin" Value="Round" />
+        <Setter Property="Width" Value="24" />
+        <Setter Property="Height" Value="24" />
+        <Setter Property="Stretch" Value="None" />
+        <Setter Property="SnapsToDevicePixels" Value="False" />
+    </Style>
+
+    <Style x:Key="IconFillPath" TargetType="Path">
+        <Setter Property="Fill" Value="{Binding Foreground, RelativeSource={RelativeSource AncestorType=Control}}" />
+        <Setter Property="Width" Value="24" />
+        <Setter Property="Height" Value="24" />
+        <Setter Property="Stretch" Value="None" />
+    </Style>
+
+    <!-- Text -->
+    <Style x:Key="TitleText" TargetType="TextBlock">
+        <Setter Property="FontFamily" Value="{StaticResource UiFont}" />
+        <Setter Property="FontSize" Value="17" />
+        <Setter Property="FontWeight" Value="SemiBold" />
+        <Setter Property="Foreground" Value="{DynamicResource TextBrush}" />
+    </Style>
+    <Style x:Key="SectionTitleText" TargetType="TextBlock">
+        <Setter Property="FontFamily" Value="{StaticResource UiFont}" />
+        <Setter Property="FontSize" Value="14" />
+        <Setter Property="FontWeight" Value="SemiBold" />
+        <Setter Property="Foreground" Value="{DynamicResource TextBrush}" />
+    </Style>
+    <Style x:Key="BodyText" TargetType="TextBlock">
+        <Setter Property="FontFamily" Value="{StaticResource UiFont}" />
+        <Setter Property="FontSize" Value="12" />
+        <Setter Property="Foreground" Value="{DynamicResource MutedTextBrush}" />
+        <Setter Property="TextWrapping" Value="Wrap" />
+    </Style>
+    <Style x:Key="ValueText" TargetType="TextBlock">
+        <Setter Property="FontFamily" Value="{StaticResource UiFont}" />
+        <Setter Property="FontSize" Value="13" />
+        <Setter Property="FontWeight" Value="SemiBold" />
+        <Setter Property="Foreground" Value="{DynamicResource AccentTextBrush}" />
+    </Style>
+
+    <!-- Buttons: at least 36 DIPs, larger than the smallest dwell target (30), so dwells stay on the control -->
+    <Style x:Key="BaseButton" TargetType="Button">
+        <Setter Property="FontFamily" Value="{StaticResource UiFont}" />
+        <Setter Property="FontSize" Value="13" />
+        <Setter Property="FontWeight" Value="SemiBold" />
+        <Setter Property="Foreground" Value="{DynamicResource TextBrush}" />
+        <Setter Property="Background" Value="{DynamicResource SurfaceBrush}" />
+        <Setter Property="BorderBrush" Value="{DynamicResource SurfaceBorderBrush}" />
+        <Setter Property="BorderThickness" Value="1" />
+        <Setter Property="MinHeight" Value="36" />
+        <Setter Property="Padding" Value="14,0" />
+        <Setter Property="Cursor" Value="Hand" />
+        <Setter Property="FocusVisualStyle" Value="{x:Null}" />
+        <Setter Property="Template">
+            <Setter.Value>
+                <ControlTemplate TargetType="Button">
+                    <Grid>
+                        <Border x:Name="Chrome" CornerRadius="8" Background="{TemplateBinding Background}"
+                                BorderBrush="{TemplateBinding BorderBrush}" BorderThickness="{TemplateBinding BorderThickness}" />
+                        <Border x:Name="Hover" CornerRadius="8" Background="{DynamicResource HoverBrush}" Opacity="0" />
+                        <Border x:Name="Focus" CornerRadius="8" BorderBrush="{DynamicResource AccentBrush}" BorderThickness="2" Opacity="0" Margin="-3" />
+                        <ContentPresenter Margin="{TemplateBinding Padding}" HorizontalAlignment="Center" VerticalAlignment="Center" />
+                    </Grid>
+                    <ControlTemplate.Triggers>
+                        <Trigger Property="IsMouseOver" Value="True">
+                            <Setter TargetName="Hover" Property="Opacity" Value="0.07" />
+                        </Trigger>
+                        <Trigger Property="IsPressed" Value="True">
+                            <Setter TargetName="Hover" Property="Opacity" Value="0.14" />
+                        </Trigger>
+                        <Trigger Property="IsKeyboardFocused" Value="True">
+                            <Setter TargetName="Focus" Property="Opacity" Value="1" />
+                        </Trigger>
+                        <Trigger Property="IsEnabled" Value="False">
+                            <Setter Property="Opacity" Value="0.45" />
+                        </Trigger>
+                    </ControlTemplate.Triggers>
+                </ControlTemplate>
+            </Setter.Value>
+        </Setter>
+    </Style>
+
+    <Style x:Key="AccentButton" TargetType="Button" BasedOn="{StaticResource BaseButton}">
+        <Setter Property="Background" Value="{DynamicResource AccentGradientBrush}" />
+        <Setter Property="BorderBrush" Value="{DynamicResource OnAccentBorderBrush}" />
+        <Setter Property="Foreground" Value="{DynamicResource OnAccentBrush}" />
+    </Style>
+
+    <Style x:Key="DangerButton" TargetType="Button" BasedOn="{StaticResource BaseButton}">
+        <Setter Property="Background" Value="{DynamicResource DangerSoftBrush}" />
+        <Setter Property="BorderBrush" Value="{DynamicResource DangerBorderBrush}" />
+        <Setter Property="Foreground" Value="{DynamicResource DangerBrush}" />
+    </Style>
+
+    <Style x:Key="IconButton" TargetType="Button" BasedOn="{StaticResource BaseButton}">
+        <Setter Property="Width" Value="36" />
+        <Setter Property="Height" Value="36" />
+        <Setter Property="Padding" Value="0" />
+    </Style>
+
+    <!-- One option of a choice group (theme, language): a tile, accented when selected -->
+    <Style x:Key="ChoiceButton" TargetType="RadioButton">
+        <Setter Property="FontFamily" Value="{StaticResource UiFont}" />
+        <Setter Property="FontSize" Value="13" />
+        <Setter Property="FontWeight" Value="SemiBold" />
+        <Setter Property="Foreground" Value="{DynamicResource TextBrush}" />
+        <Setter Property="Background" Value="{DynamicResource SurfaceBrush}" />
+        <Setter Property="BorderBrush" Value="{DynamicResource SurfaceBorderBrush}" />
+        <Setter Property="MinHeight" Value="36" />
+        <Setter Property="Margin" Value="0,0,6,0" />
+        <Setter Property="Cursor" Value="Hand" />
+        <Setter Property="FocusVisualStyle" Value="{x:Null}" />
+        <Setter Property="Template">
+            <Setter.Value>
+                <ControlTemplate TargetType="RadioButton">
+                    <Grid>
+                        <Border x:Name="Chrome" CornerRadius="8" Background="{TemplateBinding Background}"
+                                BorderBrush="{TemplateBinding BorderBrush}" BorderThickness="1" />
+                        <Border x:Name="Hover" CornerRadius="8" Background="{DynamicResource HoverBrush}" Opacity="0" />
+                        <ContentPresenter Margin="10,0" HorizontalAlignment="Center" VerticalAlignment="Center" />
+                    </Grid>
+                    <ControlTemplate.Triggers>
+                        <Trigger Property="IsMouseOver" Value="True">
+                            <Setter TargetName="Hover" Property="Opacity" Value="0.07" />
+                        </Trigger>
+                        <Trigger Property="IsChecked" Value="True">
+                            <Setter TargetName="Chrome" Property="Background" Value="{DynamicResource AccentSoftBrush}" />
+                            <Setter TargetName="Chrome" Property="BorderBrush" Value="{DynamicResource AccentBrush}" />
+                            <Setter TargetName="Chrome" Property="BorderThickness" Value="2" />
+                            <Setter Property="Foreground" Value="{DynamicResource AccentTextBrush}" />
+                        </Trigger>
+                    </ControlTemplate.Triggers>
+                </ControlTemplate>
+            </Setter.Value>
+        </Setter>
+    </Style>
+
+    <!-- Toggle switch -->
+    <Style x:Key="ToggleSwitch" TargetType="CheckBox">
+        <Setter Property="FontFamily" Value="{StaticResource UiFont}" />
+        <Setter Property="FontSize" Value="13" />
+        <Setter Property="Foreground" Value="{DynamicResource TextBrush}" />
+        <Setter Property="Cursor" Value="Hand" />
+        <Setter Property="FocusVisualStyle" Value="{x:Null}" />
+        <Setter Property="MinHeight" Value="40" />
+        <Setter Property="Template">
+            <Setter.Value>
+                <ControlTemplate TargetType="CheckBox">
+                    <Border x:Name="Row" Background="Transparent" CornerRadius="8" Padding="10,0">
+                        <Grid>
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="*" />
+                                <ColumnDefinition Width="Auto" />
+                            </Grid.ColumnDefinitions>
+                            <ContentPresenter VerticalAlignment="Center" Margin="0,0,12,0" />
+                            <Grid Grid.Column="1" Width="40" Height="22" VerticalAlignment="Center">
+                                <Border x:Name="Track" CornerRadius="11" Background="{DynamicResource SurfaceBrush}"
+                                        BorderBrush="{DynamicResource SurfaceBorderBrush}" BorderThickness="1" />
+                                <Ellipse x:Name="Thumb" Width="14" Height="14" Fill="{DynamicResource MutedTextBrush}"
+                                         HorizontalAlignment="Left" Margin="4,0,0,0" />
+                            </Grid>
+                        </Grid>
+                    </Border>
+                    <ControlTemplate.Triggers>
+                        <Trigger Property="IsMouseOver" Value="True">
+                            <Setter TargetName="Row" Property="Background" Value="{DynamicResource RowHoverBrush}" />
+                        </Trigger>
+                        <Trigger Property="IsChecked" Value="True">
+                            <Setter TargetName="Track" Property="Background" Value="{DynamicResource AccentGradientBrush}" />
+                            <Setter TargetName="Track" Property="BorderBrush" Value="{DynamicResource OnAccentBorderBrush}" />
+                            <Setter TargetName="Thumb" Property="Fill" Value="{DynamicResource OnAccentBrush}" />
+                            <Setter TargetName="Thumb" Property="HorizontalAlignment" Value="Right" />
+                            <Setter TargetName="Thumb" Property="Margin" Value="0,0,4,0" />
+                        </Trigger>
+                        <Trigger Property="IsKeyboardFocused" Value="True">
+                            <Setter TargetName="Row" Property="BorderBrush" Value="{DynamicResource AccentBrush}" />
+                            <Setter TargetName="Row" Property="BorderThickness" Value="2" />
+                        </Trigger>
+                    </ControlTemplate.Triggers>
+                </ControlTemplate>
+            </Setter.Value>
+        </Setter>
+    </Style>
+
+    <!-- Slider used inside the steppers -->
+    <Style x:Key="SliderRepeat" TargetType="RepeatButton">
+        <Setter Property="Focusable" Value="False" />
+        <Setter Property="Template">
+            <Setter.Value>
+                <ControlTemplate TargetType="RepeatButton">
+                    <Border Background="Transparent" />
+                </ControlTemplate>
+            </Setter.Value>
+        </Setter>
+    </Style>
+
+    <Style x:Key="ModernSlider" TargetType="Slider">
+        <Setter Property="IsSnapToTickEnabled" Value="True" />
+        <Setter Property="IsMoveToPointEnabled" Value="True" />
+        <Setter Property="FocusVisualStyle" Value="{x:Null}" />
+        <Setter Property="Template">
+            <Setter.Value>
+                <ControlTemplate TargetType="Slider">
+                    <Grid Height="36" Background="Transparent">
+                        <Border Height="6" CornerRadius="3" Background="{DynamicResource SurfaceBorderBrush}" VerticalAlignment="Center" />
+                        <Track x:Name="PART_Track" VerticalAlignment="Center">
+                            <Track.DecreaseRepeatButton>
+                                <RepeatButton Command="Slider.DecreaseLarge">
+                                    <RepeatButton.Template>
+                                        <ControlTemplate TargetType="RepeatButton">
+                                            <Border Height="6" CornerRadius="3" Background="{DynamicResource AccentGradientBrush}" />
+                                        </ControlTemplate>
+                                    </RepeatButton.Template>
+                                </RepeatButton>
+                            </Track.DecreaseRepeatButton>
+                            <Track.IncreaseRepeatButton>
+                                <RepeatButton Command="Slider.IncreaseLarge" Style="{StaticResource SliderRepeat}" />
+                            </Track.IncreaseRepeatButton>
+                            <Track.Thumb>
+                                <Thumb Cursor="Hand">
+                                    <Thumb.Template>
+                                        <ControlTemplate TargetType="Thumb">
+                                            <Grid Width="22" Height="22">
+                                                <Ellipse Fill="#FFFFFFFF" Effect="{StaticResource PanelShadow}" />
+                                                <Ellipse Width="10" Height="10" Fill="{DynamicResource AccentBrush}" />
+                                            </Grid>
+                                        </ControlTemplate>
+                                    </Thumb.Template>
+                                </Thumb>
+                            </Track.Thumb>
+                        </Track>
+                    </Grid>
+                </ControlTemplate>
+            </Setter.Value>
+        </Setter>
+    </Style>
+
+    <Style x:Key="Card" TargetType="Border">
+        <Setter Property="Background" Value="{DynamicResource CardBrush}" />
+        <Setter Property="BorderBrush" Value="{DynamicResource SubtleBorderBrush}" />
+        <Setter Property="BorderThickness" Value="1" />
+        <Setter Property="CornerRadius" Value="12" />
+        <Setter Property="Padding" Value="14,12" />
+        <Setter Property="Margin" Value="0,0,0,8" />
+    </Style>
+
+    <Style x:Key="CardIcon" TargetType="Border">
+        <Setter Property="Width" Value="32" />
+        <Setter Property="Height" Value="32" />
+        <Setter Property="CornerRadius" Value="10" />
+        <Setter Property="Background" Value="{DynamicResource AccentSoftBrush}" />
+        <Setter Property="Margin" Value="0,0,12,0" />
+        <Setter Property="VerticalAlignment" Value="Top" />
+    </Style>
+
+    <Style x:Key="ScrollBarThumbStyle" TargetType="Thumb">
+        <Setter Property="Template">
+            <Setter.Value>
+                <ControlTemplate TargetType="Thumb">
+                    <Border CornerRadius="3" Background="{DynamicResource ScrollThumbBrush}" Margin="2,0" />
+                </ControlTemplate>
+            </Setter.Value>
+        </Setter>
+    </Style>
+
+    <Style TargetType="ScrollBar">
+        <Setter Property="Width" Value="10" />
+        <Setter Property="Template">
+            <Setter.Value>
+                <ControlTemplate TargetType="ScrollBar">
+                    <Track x:Name="PART_Track" IsDirectionReversed="True">
+                        <Track.Thumb>
+                            <Thumb Style="{StaticResource ScrollBarThumbStyle}" />
+                        </Track.Thumb>
+                    </Track>
+                </ControlTemplate>
+            </Setter.Value>
+        </Setter>
+    </Style>
+</ResourceDictionary>

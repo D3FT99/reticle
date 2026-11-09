@@ -1,0 +1,90 @@
+<Window x:Class="Reticle.Views.MainWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:c="clr-namespace:Reticle.Controls"
+        xmlns:e="clr-namespace:Reticle.Engine"
+        Title="{Binding Title}"
+        WindowStyle="None" AllowsTransparency="True" Background="Transparent"
+        ResizeMode="NoResize" SizeToContent="WidthAndHeight" Topmost="True"
+        ShowActivated="False" ShowInTaskbar="False" WindowStartupLocation="Manual"
+        Icon="/Assets/Reticle.ico">
+
+    <!-- Margin leaves room for the drop shadow -->
+    <Border Margin="16" Padding="6" CornerRadius="20" Background="{DynamicResource PanelBrush}"
+            BorderBrush="{DynamicResource PanelBorderBrush}" BorderThickness="1" Effect="{StaticResource PanelShadow}">
+        <StackPanel x:Name="Bar">
+            <StackPanel.Style>
+                <Style TargetType="StackPanel">
+                    <Setter Property="Orientation" Value="Horizontal" />
+                    <Style.Triggers>
+                        <DataTrigger Binding="{Binding IsVertical}" Value="True">
+                            <Setter Property="Orientation" Value="Vertical" />
+                        </DataTrigger>
+                    </Style.Triggers>
+                </Style>
+            </StackPanel.Style>
+            <StackPanel.Resources>
+                <Style TargetType="c:DwellButton" BasedOn="{StaticResource {x:Type c:DwellButton}}">
+                    <Setter Property="Width" Value="{Binding ButtonSize}" />
+                    <Setter Property="Height" Value="{Binding ButtonSize}" />
+                    <Setter Property="Command" Value="{Binding ChangeClickTypeCommand}" />
+                </Style>
+                <Style x:Key="Divider" TargetType="Border">
+                    <Setter Property="Background" Value="{DynamicResource PanelBorderBrush}" />
+                    <Setter Property="Width" Value="1" />
+                    <Setter Property="Margin" Value="6,10" />
+                    <Style.Triggers>
+                        <DataTrigger Binding="{Binding IsVertical}" Value="True">
+                            <Setter Property="Width" Value="Auto" />
+                            <Setter Property="Height" Value="1" />
+                            <Setter Property="Margin" Value="10,6" />
+                        </DataTrigger>
+                    </Style.Triggers>
+                </Style>
+            </StackPanel.Resources>
+
+            <c:DwellButton x:Name="RestButton" ToolTip="{DynamicResource Tip_Rest}" ButtonState="{Binding RestState}"
+                           CommandParameter="{x:Static e:ClickType.None}">
+                <Path Data="{StaticResource IconRest}" Style="{StaticResource IconPath}" />
+            </c:DwellButton>
+
+            <c:DwellButton x:Name="LeftClickButton" ToolTip="{DynamicResource Tip_LeftClick}" ButtonState="{Binding LeftClickState}"
+                           CommandParameter="{x:Static e:ClickType.LeftClick}">
+                <Grid>
+                    <Path Data="{StaticResource IconMouseLeftFill}" Style="{StaticResource IconFillPath}" />
+                    <Path Data="{StaticResource IconMouse}" Style="{StaticResource IconPath}" />
+                </Grid>
+            </c:DwellButton>
+
+            <c:DwellButton x:Name="RightClickButton" ToolTip="{DynamicResource Tip_RightClick}" ButtonState="{Binding RightClickState}"
+                           ShowLockBadge="True" CommandParameter="{x:Static e:ClickType.RightClick}">
+                <Grid>
+                    <Path Data="{StaticResource IconMouseRightFill}" Style="{StaticResource IconFillPath}" />
+                    <Path Data="{StaticResource IconMouse}" Style="{StaticResource IconPath}" />
+                </Grid>
+            </c:DwellButton>
+
+            <c:DwellButton x:Name="DoubleClickButton" ToolTip="{DynamicResource Tip_DoubleClick}" ButtonState="{Binding DoubleClickState}"
+                           ShowLockBadge="True" CommandParameter="{x:Static e:ClickType.DoubleLeftClick}">
+                <Grid>
+                    <Grid RenderTransform="0.85,0,0,0.85,-1.5,1.8">
+                        <Path Data="{StaticResource IconMouseLeftFill}" Style="{StaticResource IconFillPath}" />
+                        <Path Data="{StaticResource IconMouse}" Style="{StaticResource IconPath}" />
+                    </Grid>
+                    <Path Data="{StaticResource IconDoubleRipple}" Style="{StaticResource IconPath}" />
+                </Grid>
+            </c:DwellButton>
+
+            <c:DwellButton x:Name="DragButton" ToolTip="{DynamicResource Tip_Drag}" ButtonState="{Binding DragState}"
+                           ShowLockBadge="True" CommandParameter="{x:Static e:ClickType.Drag}">
+                <Path Data="{StaticResource IconDrag}" Style="{StaticResource IconPath}" />
+            </c:DwellButton>
+
+            <Border Style="{StaticResource Divider}" />
+
+            <c:DwellButton x:Name="SettingsButton" ToolTip="{DynamicResource Tip_Settings}" Command="{Binding OpenSettingsCommand}">
+                <Path Data="{StaticResource IconSettings}" Style="{StaticResource IconPath}" />
+            </c:DwellButton>
+        </StackPanel>
+    </Border>
+</Window>

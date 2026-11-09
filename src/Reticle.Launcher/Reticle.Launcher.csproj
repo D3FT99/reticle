@@ -1,0 +1,28 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+  <!--
+    Ease of Access (ATBroker) starts this launcher instead of Reticle.exe. Release builds of Reticle.exe request
+    uiAccess, and CreateProcess refuses to start uiAccess executables (error 740); ShellExecute hands the start to the
+    AppInfo service, which also creates the process outside ATBroker's job object. .NET Framework 4.8 ships with
+    Windows, so this stays a tiny exe with no runtime to bundle.
+  -->
+  <PropertyGroup>
+    <OutputType>WinExe</OutputType>
+    <TargetFramework>net48</TargetFramework>
+    <LangVersion>latest</LangVersion>
+    <Nullable>enable</Nullable>
+    <AssemblyName>Reticle.Launcher</AssemblyName>
+    <RootNamespace>Reticle.Launcher</RootNamespace>
+    <Product>Reticle</Product>
+    <AssemblyTitle>Reticle launcher</AssemblyTitle>
+    <Version>1.0.0</Version>
+    <ApplicationIcon>..\Reticle\Assets\Reticle.ico</ApplicationIcon>
+    <ApplicationManifest>app.manifest</ApplicationManifest>
+    <GenerateSupportedRuntime>false</GenerateSupportedRuntime>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <PackageReference Include="Microsoft.NETFramework.ReferenceAssemblies" Version="1.0.3" PrivateAssets="all" />
+  </ItemGroup>
+
+</Project>

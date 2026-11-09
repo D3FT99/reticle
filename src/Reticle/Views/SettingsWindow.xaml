@@ -1,0 +1,254 @@
+<Window x:Class="Reticle.Views.SettingsWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:v="clr-namespace:Reticle.Views"
+        Title="{DynamicResource Settings_WindowTitle}"
+        WindowStyle="None" AllowsTransparency="True" Background="Transparent"
+        ResizeMode="NoResize" Width="480" SizeToContent="Height" Topmost="True"
+        WindowStartupLocation="CenterScreen" ShowInTaskbar="False"
+        FontFamily="{StaticResource UiFont}" Icon="/Assets/Reticle.ico">
+    <Window.Resources>
+        <BooleanToVisibilityConverter x:Key="BoolToVisibility" />
+
+        <v:EnumMatchConverter x:Key="EnumMatch" />
+
+        <Style x:Key="StepperLabel" TargetType="TextBlock" BasedOn="{StaticResource ValueText}">
+            <Setter Property="HorizontalAlignment" Value="Center" />
+            <Setter Property="Margin" Value="0,4,0,0" />
+        </Style>
+    </Window.Resources>
+
+    <Border Margin="20" CornerRadius="16" Background="{DynamicResource WindowBrush}"
+            BorderBrush="{DynamicResource PanelBorderBrush}" BorderThickness="1" Effect="{StaticResource PanelShadow}">
+        <Grid>
+            <Grid.RowDefinitions>
+                <RowDefinition Height="Auto" />
+                <RowDefinition Height="*" />
+                <RowDefinition Height="Auto" />
+            </Grid.RowDefinitions>
+
+            <!-- Header (drag to move) -->
+            <Grid Grid.Row="0" Margin="20,16,20,4" Background="Transparent" MouseLeftButtonDown="OnHeaderMouseDown">
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="Auto" />
+                    <ColumnDefinition Width="*" />
+                </Grid.ColumnDefinitions>
+                <Image Source="{StaticResource AppIconImage}" Width="32" Height="32" VerticalAlignment="Center" />
+                <StackPanel Grid.Column="1" Margin="12,0,0,0" VerticalAlignment="Center">
+                    <TextBlock Text="{DynamicResource AppName}" Style="{StaticResource TitleText}" />
+                    <TextBlock Text="{Binding VersionText}" Style="{StaticResource BodyText}" />
+                </StackPanel>
+            </Grid>
+
+            <ScrollViewer Grid.Row="1" VerticalScrollBarVisibility="Auto" MaxHeight="640" Margin="0,8,0,0">
+                <StackPanel Margin="20,0,20,4">
+
+                    <!-- Target size -->
+                    <Border Style="{StaticResource Card}">
+                        <DockPanel>
+                            <Border DockPanel.Dock="Left" Style="{StaticResource CardIcon}">
+                                <Path Data="{StaticResource IconTarget}" Style="{StaticResource IconPath}" Stroke="{DynamicResource AccentTextBrush}" />
+                            </Border>
+                            <StackPanel>
+                                <TextBlock Text="{DynamicResource TargetSize_Title}" Style="{StaticResource SectionTitleText}" />
+                                <TextBlock Text="{DynamicResource TargetSize_Body}"
+                                           Style="{StaticResource BodyText}" Margin="0,2,0,12" />
+                                <Grid>
+                                    <Grid.ColumnDefinitions>
+                                        <ColumnDefinition Width="112" />
+                                        <ColumnDefinition Width="*" />
+                                    </Grid.ColumnDefinitions>
+                                    <Border Width="104" Height="104" CornerRadius="12" Background="{DynamicResource SurfaceBrush}" HorizontalAlignment="Left">
+                                        <Ellipse Width="{Binding TargetSize}" Height="{Binding TargetSize}" StrokeThickness="4"
+                                                 Stroke="{DynamicResource AccentGradientBrush}" />
+                                    </Border>
+                                    <StackPanel Grid.Column="1" VerticalAlignment="Center" Margin="12,0,0,0">
+                                        <DockPanel>
+                                            <Button DockPanel.Dock="Left" Style="{StaticResource IconButton}" ToolTip="{DynamicResource Common_Smaller}"
+                                                    Command="{Binding DecreaseTargetSizeCommand}">
+                                                <Path Data="{StaticResource IconMinus}" Style="{StaticResource IconPath}" />
+                                            </Button>
+                                            <Button DockPanel.Dock="Right" Style="{StaticResource IconButton}" ToolTip="{DynamicResource Common_Larger}"
+                                                    Command="{Binding IncreaseTargetSizeCommand}">
+                                                <Path Data="{StaticResource IconPlus}" Style="{StaticResource IconPath}" />
+                                            </Button>
+                                            <Slider Style="{StaticResource ModernSlider}" Margin="10,0" VerticalAlignment="Center"
+                                                    Minimum="{Binding MinTargetSize}" Maximum="{Binding MaxTargetSize}"
+                                                    TickFrequency="{Binding TargetSizeStep}" SmallChange="{Binding TargetSizeStep}"
+                                                    LargeChange="{Binding TargetSizeStep}" Value="{Binding TargetSize}" />
+                                        </DockPanel>
+                                        <TextBlock Text="{Binding TargetSizeText}" Style="{StaticResource StepperLabel}" />
+                                    </StackPanel>
+                                </Grid>
+                            </StackPanel>
+                        </DockPanel>
+                    </Border>
+
+                    <!-- Toolbar size -->
+                    <Border Style="{StaticResource Card}">
+                        <DockPanel>
+                            <Border DockPanel.Dock="Left" Style="{StaticResource CardIcon}">
+                                <Path Data="{StaticResource IconToolbar}" Style="{StaticResource IconPath}" Stroke="{DynamicResource AccentTextBrush}" />
+                            </Border>
+                            <StackPanel>
+                                <TextBlock Text="{DynamicResource ToolbarSize_Title}" Style="{StaticResource SectionTitleText}" />
+                                <TextBlock Text="{DynamicResource ToolbarSize_Body}"
+                                           Style="{StaticResource BodyText}" Margin="0,2,0,12" />
+                                <DockPanel>
+                                    <Button DockPanel.Dock="Left" Style="{StaticResource IconButton}" ToolTip="{DynamicResource Common_Smaller}"
+                                            Command="{Binding DecreaseButtonSizeCommand}">
+                                        <Path Data="{StaticResource IconMinus}" Style="{StaticResource IconPath}" />
+                                    </Button>
+                                    <Button DockPanel.Dock="Right" Style="{StaticResource IconButton}" ToolTip="{DynamicResource Common_Larger}"
+                                            Command="{Binding IncreaseButtonSizeCommand}">
+                                        <Path Data="{StaticResource IconPlus}" Style="{StaticResource IconPath}" />
+                                    </Button>
+                                    <Slider Style="{StaticResource ModernSlider}" Margin="10,0" VerticalAlignment="Center"
+                                            Minimum="{Binding MinButtonSize}" Maximum="{Binding MaxButtonSize}"
+                                            TickFrequency="{Binding ButtonSizeStep}" SmallChange="{Binding ButtonSizeStep}"
+                                            LargeChange="{Binding ButtonSizeStep}" Value="{Binding ButtonSize}" />
+                                </DockPanel>
+                                <TextBlock Text="{Binding ButtonSizeText}" Style="{StaticResource StepperLabel}" />
+                            </StackPanel>
+                        </DockPanel>
+                    </Border>
+
+                    <!-- Dwell time -->
+                    <Border Style="{StaticResource Card}">
+                        <DockPanel>
+                            <Border DockPanel.Dock="Left" Style="{StaticResource CardIcon}">
+                                <Path Data="{StaticResource IconTimer}" Style="{StaticResource IconPath}" Stroke="{DynamicResource AccentTextBrush}" />
+                            </Border>
+                            <StackPanel>
+                                <TextBlock Text="{DynamicResource DwellTime_Title}" Style="{StaticResource SectionTitleText}" />
+                                <TextBlock Text="{DynamicResource DwellTime_Body}"
+                                           Style="{StaticResource BodyText}" Margin="0,2,0,12" />
+                                <DockPanel>
+                                    <Button DockPanel.Dock="Left" Style="{StaticResource IconButton}" ToolTip="{DynamicResource DwellTime_Shorter}"
+                                            Command="{Binding DecreaseDwellTimeCommand}">
+                                        <Path Data="{StaticResource IconMinus}" Style="{StaticResource IconPath}" />
+                                    </Button>
+                                    <Button DockPanel.Dock="Right" Style="{StaticResource IconButton}" ToolTip="{DynamicResource DwellTime_Longer}"
+                                            Command="{Binding IncreaseDwellTimeCommand}">
+                                        <Path Data="{StaticResource IconPlus}" Style="{StaticResource IconPath}" />
+                                    </Button>
+                                    <Slider Style="{StaticResource ModernSlider}" Margin="10,0" VerticalAlignment="Center"
+                                            Minimum="{Binding MinDwellTime}" Maximum="{Binding MaxDwellTime}"
+                                            TickFrequency="{Binding DwellTimeStep}" SmallChange="{Binding DwellTimeStep}"
+                                            LargeChange="{Binding DwellTimeStep}" Value="{Binding DwellTime}" />
+                                </DockPanel>
+                                <TextBlock Text="{Binding DwellTimeText}" Style="{StaticResource StepperLabel}" />
+                            </StackPanel>
+                        </DockPanel>
+                    </Border>
+
+                    <!-- Sound -->
+                    <Border Style="{StaticResource Card}" Padding="14,6">
+                        <DockPanel>
+                            <Border DockPanel.Dock="Left" Style="{StaticResource CardIcon}" VerticalAlignment="Center">
+                                <Path Style="{StaticResource IconPath}" Stroke="{DynamicResource AccentTextBrush}"
+                                      Data="{Binding SoundEnabled, Converter={x:Static v:SoundIconConverter.Instance}}" />
+                            </Border>
+                            <CheckBox Style="{StaticResource ToggleSwitch}" IsChecked="{Binding SoundEnabled}" Margin="-10,0">
+                                <StackPanel>
+                                    <TextBlock Text="{DynamicResource Sound_Title}" Style="{StaticResource SectionTitleText}" />
+                                    <TextBlock Text="{Binding SoundEnabledText}" Style="{StaticResource BodyText}" />
+                                </StackPanel>
+                            </CheckBox>
+                        </DockPanel>
+                    </Border>
+
+                    <!-- Position -->
+                    <Border Style="{StaticResource Card}">
+                        <DockPanel>
+                            <Border DockPanel.Dock="Left" Style="{StaticResource CardIcon}" VerticalAlignment="Center">
+                                <Path Data="{StaticResource IconPosition}" Style="{StaticResource IconPath}" Stroke="{DynamicResource AccentTextBrush}" />
+                            </Border>
+                            <Button DockPanel.Dock="Right" Content="{DynamicResource Position_Change}" Style="{StaticResource BaseButton}"
+                                    Command="{Binding ChangePositionCommand}" MinWidth="120" />
+                            <StackPanel VerticalAlignment="Center">
+                                <TextBlock Text="{DynamicResource Position_Title}" Style="{StaticResource SectionTitleText}" />
+                                <TextBlock Text="{Binding PositionText}" Style="{StaticResource BodyText}" />
+                            </StackPanel>
+                        </DockPanel>
+                    </Border>
+
+                    <!-- Theme -->
+                    <Border Style="{StaticResource Card}">
+                        <DockPanel>
+                            <Border DockPanel.Dock="Left" Style="{StaticResource CardIcon}">
+                                <Path Data="{StaticResource IconTheme}" Style="{StaticResource IconPath}" Stroke="{DynamicResource AccentTextBrush}" />
+                            </Border>
+                            <StackPanel>
+                                <TextBlock Text="{DynamicResource Theme_Title}" Style="{StaticResource SectionTitleText}" />
+                                <TextBlock Text="{DynamicResource Theme_Body}" Style="{StaticResource BodyText}" Margin="0,2,0,12" />
+                                <UniformGrid Rows="1">
+                                    <RadioButton Style="{StaticResource ChoiceButton}" GroupName="Theme" Content="{DynamicResource Theme_Midnight}"
+                                                 IsChecked="{Binding Theme, Converter={StaticResource EnumMatch}, ConverterParameter=Midnight}" />
+                                    <RadioButton Style="{StaticResource ChoiceButton}" GroupName="Theme" Content="{DynamicResource Theme_Daylight}"
+                                                 IsChecked="{Binding Theme, Converter={StaticResource EnumMatch}, ConverterParameter=Daylight}" />
+                                    <RadioButton Style="{StaticResource ChoiceButton}" GroupName="Theme" Content="{DynamicResource Theme_Ocean}"
+                                                 IsChecked="{Binding Theme, Converter={StaticResource EnumMatch}, ConverterParameter=Ocean}" />
+                                </UniformGrid>
+                            </StackPanel>
+                        </DockPanel>
+                    </Border>
+
+                    <!-- Language -->
+                    <Border Style="{StaticResource Card}">
+                        <DockPanel>
+                            <Border DockPanel.Dock="Left" Style="{StaticResource CardIcon}">
+                                <Path Data="{StaticResource IconLanguage}" Style="{StaticResource IconPath}" Stroke="{DynamicResource AccentTextBrush}" />
+                            </Border>
+                            <StackPanel>
+                                <TextBlock Text="{DynamicResource Language_Title}" Style="{StaticResource SectionTitleText}" />
+                                <TextBlock Text="{DynamicResource Language_Body}" Style="{StaticResource BodyText}" Margin="0,2,0,12" />
+                                <UniformGrid Rows="1">
+                                    <RadioButton Style="{StaticResource ChoiceButton}" GroupName="Language" Content="{DynamicResource Language_English}"
+                                                 IsChecked="{Binding Language, Converter={StaticResource EnumMatch}, ConverterParameter=English}" />
+                                    <RadioButton Style="{StaticResource ChoiceButton}" GroupName="Language" Content="{DynamicResource Language_PortuguesePortugal}"
+                                                 IsChecked="{Binding Language, Converter={StaticResource EnumMatch}, ConverterParameter=PortuguesePortugal}" />
+                                </UniformGrid>
+                            </StackPanel>
+                        </DockPanel>
+                    </Border>
+
+                    <!-- Start automatically -->
+                    <Border Style="{StaticResource Card}" Visibility="{Binding ShowStartupOptions, Converter={StaticResource BoolToVisibility}}">
+                        <DockPanel>
+                            <Border DockPanel.Dock="Left" Style="{StaticResource CardIcon}">
+                                <Path Data="{StaticResource IconShield}" Style="{StaticResource IconPath}" Stroke="{DynamicResource AccentTextBrush}" />
+                            </Border>
+                            <StackPanel>
+                                <TextBlock Text="{DynamicResource Startup_Title}" Style="{StaticResource SectionTitleText}" />
+                                <TextBlock Text="{DynamicResource Startup_Body}"
+                                           Style="{StaticResource BodyText}" Margin="0,2,0,8" />
+                                <CheckBox Style="{StaticResource ToggleSwitch}" IsChecked="{Binding RunAtDesktop}" Margin="-10,0">
+                                    <TextBlock Text="{DynamicResource Startup_Desktop}" TextWrapping="Wrap" Foreground="{DynamicResource TextBrush}" />
+                                </CheckBox>
+                                <CheckBox Style="{StaticResource ToggleSwitch}" IsChecked="{Binding RunAtSignIn}" Margin="-10,0">
+                                    <TextBlock Text="{DynamicResource Startup_SignIn}" Foreground="{DynamicResource TextBrush}" />
+                                </CheckBox>
+                            </StackPanel>
+                        </DockPanel>
+                    </Border>
+                </StackPanel>
+            </ScrollViewer>
+
+            <!-- Footer -->
+            <Border Grid.Row="2" BorderBrush="{DynamicResource SubtleBorderBrush}" BorderThickness="0,1,0,0" Padding="20,12,20,16">
+                <Grid>
+                    <Button HorizontalAlignment="Left" Style="{StaticResource DangerButton}" MinWidth="150" MinHeight="40"
+                            Command="{Binding ExitCommand}">
+                        <StackPanel Orientation="Horizontal">
+                            <Path Data="{StaticResource IconPower}" Style="{StaticResource IconPath}" Margin="0,0,8,0" />
+                            <TextBlock Text="{DynamicResource Settings_Exit}" VerticalAlignment="Center" />
+                        </StackPanel>
+                    </Button>
+                    <Button HorizontalAlignment="Right" Content="{DynamicResource Settings_Done}" Style="{StaticResource AccentButton}" MinWidth="140" MinHeight="40"
+                            IsDefault="True" IsCancel="True" Command="{Binding DoneCommand}" />
+                </Grid>
+            </Border>
+        </Grid>
+    </Border>
+</Window>

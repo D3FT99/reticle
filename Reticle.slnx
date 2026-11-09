@@ -1,0 +1,9 @@
+<Solution>
+  <Folder Name="/src/">
+    <Project Path="src/Reticle/Reticle.csproj" />
+    <Project Path="src/Reticle.Launcher/Reticle.Launcher.csproj" />
+  </Folder>
+  <Folder Name="/tests/">
+    <Project Path="tests/Reticle.Tests/Reticle.Tests.csproj" />
+  </Folder>
+</Solution>
