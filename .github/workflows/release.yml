@@ -134,4 +134,9 @@ jobs:
         if: always()
         # Windows PowerShell: its certificate provider supports -DeleteKey, PowerShell 7's does not.
         shell: powershell
-        run: Get-ChildItem Cert:\CurrentUser\My | Where-Object Subject -eq 'CN=Reticle' | Remove-Item -DeleteKey -ErrorAction SilentlyContinue
+        # -DeleteKey is a dynamic parameter: it binds only with an explicit Cert: path, not from the pipeline.
+        run: |
+          Get-ChildItem Cert:\CurrentUser\My | Where-Object Subject -eq 'CN=Reticle' | ForEach-Object {
+            Remove-Item -Path "Cert:\CurrentUser\My\$($_.Thumbprint)" -DeleteKey
+            Write-Output "Removed $($_.Thumbprint)"
+          }
